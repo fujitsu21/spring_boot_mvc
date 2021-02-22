@@ -9,7 +9,7 @@
     <div class="row justify-content-md-center">
       <div class="col-md-8">
         <h4 class="border-bottom my-3" th:text="#{title}"></h4>
-        <form th:action="@{/index}" th:object="${book}" method="post" novalidate>
+        <form th:action="@{/insert}" th:object="${book}" method="post" novalidate>
         	
         	<div class="form-group">
             <label for="employee_number" th:text="#{employee_number}"></label>
