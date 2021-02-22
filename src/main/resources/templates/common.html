@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- (1)共通にしたいheadをfragment化する -->
+<head th:fragment="meta_header(title,links,scripts)">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- (2)共通で読み込むCSS/JS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+     <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <!-- (5)body内で共通化したい部品をfragment化する -->
+    <header th:fragment="header">
+    	<nav class="navbar navbar-dark bg-dark">
+		  <a class="navbar-brand" href="#">書籍管理アプリ</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarText">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="#">Features</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="#">Pricing</a>
+		      </li>
+		    </ul>
+		    <span class="navbar-text">
+		      Navbar text with an inline element
+		    </span>
+		  </div>
+		</nav>
+    </header>
+</body>
+</html>
