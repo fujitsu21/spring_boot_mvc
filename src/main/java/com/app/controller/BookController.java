@@ -22,7 +22,6 @@ import com.app.repository.BookRepository;
 
 @Controller
 public class BookController {
-	
 	/*
 	 * repositoryインターフェースを自動インスタンス化
 	 * EntityManager自動インスタンス化
@@ -43,9 +42,10 @@ public class BookController {
 	 * トップページ
 	 */
 	@GetMapping("/index")
-	public String Index(Model model) {
+	public String index(Model model) {
 		return "index";
 	}
+	
 	/**
 	 * [list] へアクセスがあった場合
 	 */
