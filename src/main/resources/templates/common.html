@@ -1,7 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- (1)共通にしたいheadをfragment化する -->
 <head th:fragment="meta_header(title,links,scripts)">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- (2)共通で読み込むCSS/JS -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
      <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
@@ -23,14 +24,13 @@
 		        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">Features</a>
+		        <a class="nav-link" href="/list">書籍リスト</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">Pricing</a>
+		        <a class="nav-link" href="/insert">登録</a>
 		      </li>
 		    </ul>
 		    <span class="navbar-text">
-		      Navbar text with an inline element
 		    </span>
 		  </div>
 		</nav>

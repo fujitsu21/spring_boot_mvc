@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: meta_header('top',~{::link},~{::script})"></head>
+
+<body>
+<div th:replace="common :: header"></div>
+
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div class="col-md-8">
+			<h4 class="border-bottom my-3" th:text="書籍一覧"></h4>
+		</div>
+		<div class="ml-auto posts_button">
+        		<a class="btn btn-outline-info" href="/insert" role="button">投稿</a>
+    	</div>
+		
+<table class="table table-bordered border-primary table-hover table-sm posts_table">
+  <thead class="thead-dark">
+    <tr>
+    	<th scope="col">JANコード</th>
+    	<th scope="col">タイトル</th>
+    	<th scope="col">社員番号</th>
+    	<th scope="col">メールアドレス</th>
+    	<th scope="col">操作</th>
+   	</tr>
+  </thead>
+  
+  <tbody th:if="${book_list.size() >= 1}">
+	<tr th:each="book: ${book_list}" th:objext="${book}">
+		<td th:text="${book.jan_code}"></td>
+		<td th:text="${book.book_name}"></td>
+		<td th:text="${book.employee_number}"></td>
+		<td th:text="${book.employee_mail}"></td>
+		<td>
+			<a href="#">編集</a>
+			<a href="#">削除</a>
+		</td>
+	</tr>
+ </tbody>
+</table>
+</div>
+</div>
+</body>
+</html>
