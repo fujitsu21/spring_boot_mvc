@@ -1,5 +1,10 @@
 package com.app.controller;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -9,15 +14,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.app.dao.BookDao;
 import com.app.model.Book;
 import com.app.repository.BookRepository;
 
 @Controller
 public class BookController {
 	
-	// repositoryインターフェースを自動インスタンス化
+	/*
+	 * repositoryインターフェースを自動インスタンス化
+	 * EntityManager自動インスタンス化
+	 * Dao自動インスタンス化
+	 */
 	@Autowired
 	private BookRepository bookstore;
+	@PersistenceContext
+	private EntityManager entityManager;
+	@Autowired
+	private BookDao bookDao;
+	@PostConstruct
+	public void init() {
+		bookDao = new BookDao(entityManager);
+	}
 	
 	/**
 	 * [list] へアクセスがあった場合
@@ -37,9 +55,28 @@ public class BookController {
 		return mav;
 	}
 	
+	/*
+	 * [search]にアクセスがあった場合
+	 */
+	@RequestMapping("/search")
+	public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
+		// bookstoreテーブルから検索
+		Iterable<Book> book_list = bookDao.find(
+				request.getParameter(null),
+				request.getParameter("book_name"),
+				request.getParameter(null),
+				request.getParameter(null)
+				);
+		// viewに渡す変数をModelに格納
+		mav.addObject("book_list", book_list);
+		// 画面に出力するViewを指定
+		mav.setViewName("list");
+		// ModelとView情報を返す
+		return mav;
+	}
 	
 	/**
-	 * [index]へアクセスがあった場合
+	 * [insert]へアクセスがあった場合
 	 */
 	@RequestMapping("/insert")
 	public ModelAndView index(@ModelAttribute Book book, ModelAndView mav) {
