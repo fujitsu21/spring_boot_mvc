@@ -103,7 +103,7 @@ public class BookController {
 	 * [insert]へアクセスがあった場合
 	 */
 	@RequestMapping("/insert")
-	public ModelAndView index(@ModelAttribute Book book, ModelAndView mav) {
+	public ModelAndView insert(@ModelAttribute Book book, ModelAndView mav) {
 		// store various for View to Model
 		mav.addObject("book", book);
 		
