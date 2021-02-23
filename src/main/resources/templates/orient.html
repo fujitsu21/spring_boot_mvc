@@ -10,6 +10,18 @@
 		<h4 class="border-bottom my-3" th:text="書籍リスト"></h4>
 	</div>
 	
+	<form class="inline-block" action="/search">
+				題名 <input type="text" name="book_name">
+				JANコード <input type="text" name="jan_code">
+				社員番号 <input type="text" name="employee_number">
+				メール <input type="text" name="employee_mail">
+				<input type="submit" value="検索">
+			</form>
+			
+			<form class="inline-block" action="/list">
+				<input type="submit" value="全件表示">
+			</form>
+	
   <table class="table table-striped text-nowrap">
   <thead>
     <tr align="center">

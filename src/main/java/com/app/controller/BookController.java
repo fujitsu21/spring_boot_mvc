@@ -71,16 +71,31 @@ public class BookController {
 	public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
 		// bookstoreテーブルから検索
 		Iterable<Book> book_list = bookDao.find(
-				request.getParameter(null),
+				request.getParameter("jan_code"),
 				request.getParameter("book_name"),
-				request.getParameter(null),
-				request.getParameter(null)
+				request.getParameter("employee_number"),
+				request.getParameter("employee_mail")
 				);
 		// viewに渡す変数をModelに格納
 		mav.addObject("book_list", book_list);
 		// 画面に出力するViewを指定
-		mav.setViewName("list");
+		mav.setViewName("orient");
 		// ModelとView情報を返す
+		return mav;
+	}
+	
+	@RequestMapping("/orient")
+	public ModelAndView orient(ModelAndView mav) {
+		// bookstoreテーブルから全件取得
+		Iterable<Book> book_list = bookstore.findAll();
+		
+		// Viewに渡す変数をModelに格納
+		mav.addObject("book_list", book_list);
+		
+		// 画面に出力するViewを指定
+		mav.setViewName("orient");
+		
+		// return Model and View
 		return mav;
 	}
 	
