@@ -6,21 +6,28 @@ import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.dao.BookDao;
 import com.app.model.Book;
 import com.app.repository.BookRepository;
+import com.app.service.ApiSearch;
+import com.app.service.BookService;
 
 @Controller
+@RequestMapping("/")
 public class BookController {
 	/*
 	 * repositoryインターフェースを自動インスタンス化
@@ -33,6 +40,8 @@ public class BookController {
 	private EntityManager entityManager;
 	@Autowired
 	private BookDao bookDao;
+	@Autowired
+	private BookService bookService;
 	@PostConstruct
 	public void init() {
 		bookDao = new BookDao(entityManager);
@@ -41,11 +50,24 @@ public class BookController {
 	/*
 	 * トップページ
 	 */
-	@GetMapping("/index")
+	@GetMapping("index")
 	public String index(Model model) {
 		return "index";
 	}
 	
+	@GetMapping("inputform")
+	public String output (@RequestParam(name = "number") String number, Model model) {
+		// エラーチェック
+		if (number == null || number.equals("")) {
+			model.addAttribute("errorMessage", "番号を入力してください");
+			return index(model);
+		}
+		// api呼び出し
+		ApiSearch apisearch = BookService.service(number);
+		
+		model.addAttribute("number", ApiSearch.getResult());
+		return "searchresult";
+	}
 	/**
 	 * [list] へアクセスがあった場合
 	 */
@@ -112,6 +134,15 @@ public class BookController {
 		
 		// return Model and View
 		return mav;
+	}
+	
+	/*
+	 * Deleteメソッド
+	 */
+	@PostMapping("book/{id}")
+	public String destroy(@PathVariable Long id) {
+		bookService.delete(id);
+		return "redirect:/list";
 	}
 	
 	/**

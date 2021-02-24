@@ -17,7 +17,7 @@
     	<th>メールアドレス</th>
     	<th>タイトル</th>
     	<th>JANコード</th>
-    	<th><a class="btn btn-success btn-sm" href="/insert" role="button">新規登録</a></th>
+    	<th><a class="btn btn-success btn-sm" href="/insert" type="submit" role="button">新規登録</a></th>
    	</tr>
   </thead>
   
@@ -28,8 +28,9 @@
 		<td th:text="${book.book_name}"></td>
 		<td th:text="${book.jan_code}"></td>
 		<td>
-			<a class="btn btn-warning btn-sm" href="#" role="button">編集</a>
-			<a class="btn btn-danger btn-sm" href="#" role="button">削除</a>
+			<form th:action="@{/book/{id}(id=*{book.id})}" th:method="post">
+				<input class="btn btn-danger btn-sm" type="submit" value="削除" role="button"/>
+			</form>
 		</td>
 	</tr>
  </tbody>

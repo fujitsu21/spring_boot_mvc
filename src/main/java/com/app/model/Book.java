@@ -47,13 +47,13 @@ public class Book implements Serializable {
     // 必須入力、Email形式であること、文字列が30文字まで。
     @NotBlank
     @Email
-    @Size( max = 30)
+    @Size( max = 50)
     @Column
     private String employee_mail;
 
     // 必須入力、文字列が20文字まで。
     @NotBlank
-    @Size( max = 20)
+    @Size( max = 30)
     @Column
     private String book_name;
     
