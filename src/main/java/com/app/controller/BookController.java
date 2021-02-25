@@ -6,7 +6,6 @@ import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,17 +54,17 @@ public class BookController {
 		return "index";
 	}
 	
-	@GetMapping("inputform")
-	public String output (@RequestParam(name = "number") String number, Model model) {
+	@RequestMapping(value = "index/confirm", method=RequestMethod.POST)
+	public String output(@RequestParam("number") String number, Model model) {
 		// エラーチェック
 		if (number == null || number.equals("")) {
 			model.addAttribute("errorMessage", "番号を入力してください");
 			return index(model);
 		}
 		// api呼び出し
-		ApiSearch apisearch = BookService.service(number);
+		ApiSearch apisearch = bookService.service(number);
 		
-		model.addAttribute("number", ApiSearch.getResult());
+		model.addAttribute("number", apisearch.getResults());
 		return "searchresult";
 	}
 	/**

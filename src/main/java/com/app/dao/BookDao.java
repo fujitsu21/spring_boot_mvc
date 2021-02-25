@@ -1,6 +1,7 @@
 package com.app.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -58,4 +59,15 @@ public class BookDao {
 		);
 		return (ArrayList<Book>)entityManager.createQuery(query).getResultList();
 	}
+	
+	public List<Book> findone(String employee_number) {
+		query.select(root);
+		
+		//set where
+		query.where(
+				builder.equal(root.get("employee_number"), employee_number)
+		);
+		return (List<Book>)entityManager.createQuery(query).getResultList();
+	}
+	
 }

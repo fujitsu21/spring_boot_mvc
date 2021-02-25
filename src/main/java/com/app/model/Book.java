@@ -39,7 +39,7 @@ public class Book implements Serializable {
 	private Long id;
 	
 	@NotBlank
-	@Column
+	@Column(name = "employee_number")
 	@Size( max = 20)
 	
 	private String employee_number;

@@ -17,11 +17,11 @@ public class BookService {
 	@Autowired
 	private BookRepository bookRepository;
 	
-	@Qualifier
+	@Autowired
 	RestTemplate restTemplate;
 	
-	public ApiSearchMethod service(String number) {
-		return restTemplate.getForObject("/", ApiSeach.class, number);
+	public ApiSearch service(String number) {
+		return restTemplate.getForObject("/api", ApiSearch.class, number);
 	}
 	
 	public List<Book> findAll() {

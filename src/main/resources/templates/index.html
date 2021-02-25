@@ -10,7 +10,7 @@
     <div class="row justify-content-md-center">
       <div class="col-md-8">
         <h4 class="border-bottom my-3" th:text="蔵書検索"></h4>
-      <form method = "get" action ="inputform">
+      <form method = "POST" action ="/api">
       	<div class="form-group">
       		<label for = "employee_number" th:text="#{employee_number}"></label>
       		<input type="number" class="form-control" name="number">

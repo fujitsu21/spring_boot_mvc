@@ -14,7 +14,6 @@ import com.app.model.Book;
 import com.app.repository.BookRepository;
 
 @RestController
-@RequestMapping("api")
 public class ApiBookController {
 	@Autowired
 	BookRepository bookRepository;
@@ -22,7 +21,7 @@ public class ApiBookController {
 	private BookDao bookDao;
 	
 	// GETリクエストに対してbookテーブルの中身を応答する
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/api", method = RequestMethod.GET)
 	public List<Book> bookGet() {
 		// リポジトリからテーブル内の全レコードを取り出す
 		// select * from bookが実行される
@@ -33,17 +32,17 @@ public class ApiBookController {
 	/*
 	 * POSTリクエストに対して、社員番号からタイトルの検索をかける
 	 */
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value = "/api", method=RequestMethod.POST)
 	public List<Book> bookPost(@RequestBody String number) {		
 		// bookstoreテーブルから検索
-		List<Book> result = bookDao.find(null, null, number, null);
+		List<Book> result = bookDao.findone(number);
 		return result;
 	}
 	
 	/*
 	 * PUTリクエストによってテーブルのデータをUPDATEする（１件のみ）
 	 */
-	@RequestMapping(method=RequestMethod.PUT)
+	@RequestMapping(value = "/api", method=RequestMethod.PUT)
 	public Book bookPut(@RequestBody Book book) {
 		// 指定されたデータのIDを指定してレコードを取り出す
 		Optional<Book> target = bookRepository.findById(book.getId());
@@ -56,7 +55,7 @@ public class ApiBookController {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE)
+	@RequestMapping(value = "/api", method=RequestMethod.DELETE)
 	public Book bookDelete(@RequestBody Book book) {
 		// 指定されたデータのIDを指定してレコードを取り出す
 		Optional<Book> target = bookRepository.findById(book.getId());
